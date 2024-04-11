@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario para publicar un producto de segunda mano</title>
+    <link rel="stylesheet" href="stilo2.css">
+</head>
+<body>
+    <h2>publica un producto de segunda mano</h2>
+    <form enctype="multipart/form-data" onsubmit="return validarFormulario()">
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio"><br>
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" required><br>
+
+        <label for="aceptar">Aceptar políticas:</label>
+        <input type="checkbox" id="aceptar" name="aceptar" required><br>
+
+        <input type="submit" value="Publicar">
+    </form>
+    <script>
+        function validarFormulario() {
+            var nombre = document.getElementById("nombre").value;
+            var email = document.getElementById("email").value;
+            var precio = document.getElementById("precio").value;
+            var aceptar = document.getElementById("aceptar").checked;
+            var imagen = document.getElementById("imagen").files[0];
+
+
+            if (!/^[a-zA-Z\s]+$/.test(nombre)) {
+                alert("El nombre solo puede contener letras y espacios.");
+                return false;
+            }
+
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                alert("Por favor, ingrese un email válido.");
+                return false;
+            }
+
+            if (isNaN(precio)) {
+                alert("El precio debe ser un número.");
+                return false;
+            }
+
+
+            if (!aceptar) {
+                alert("Debe aceptar las políticas.");
+                return false;
+            }
+
+            if (imagen && imagen.size > 5 * 1024 * 1024) {
+                alert("La imagen no debe superar los 5Mb.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
